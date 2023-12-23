@@ -56,12 +56,18 @@ public class Locations {
     @Length(min = 2, max = 2, message = "Country code must be 3-12 of length")
     private String countryCode;
 
-    private boolean enabled;
+    @JsonIgnore
+    private boolean enabled = true;
 
     @JsonIgnore
     private boolean trashed;
 
     @OneToOne(mappedBy = "locations", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn  //Indicates that primary key of locations is also a foreign key in RealtimeWeather
+    @JsonIgnore
     private RealtimeWeather realtimeWeather;
+
+    @Override
+    public String toString() {
+        return cityName+", "+countryName;
+    }
 }
